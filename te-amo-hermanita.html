@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Te amo hermanita</title>
+<style>
+  :root {
+    --rosa: #ffd6e8;
+    --lila: #e5d4ff;
+    --menta: #d4fff0;
+    --amarillo: #fff6d4;
+    --celeste: #d4ecff;
+    --texto: #7a5c72;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    font-family: 'Comic Sans MS', 'Segoe UI', sans-serif;
+    background: linear-gradient(160deg, #ffdcec 0%, #ffc9e1 50%, #ffdcec 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  /* ===== TÍTULO ESTILO DULCE / CARAMELO ===== */
+  .titulo {
+    text-align: center;
+    font-size: 3.4rem;
+    font-weight: 900;
+    color: #ffffff;
+    -webkit-text-stroke: 2.5px #e884b3;
+    text-shadow:
+      3px 3px 0 #ff9dc4,
+      6px 6px 0 #ffc2dd,
+      0 0 25px #ffffffaa;
+    letter-spacing: 1px;
+    margin-top: 50px;
+    padding: 0 20px;
+    animation: latido 2s ease-in-out infinite;
+    z-index: 5;
+  }
+
+  @keyframes latido {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.06) rotate(-1deg); }
+  }
+
+  .subtitulo {
+    color: #b5507d;
+    font-size: 1.1rem;
+    margin-top: 10px;
+    opacity: 0.9;
+    z-index: 5;
+    font-weight: bold;
+  }
+
+  /* ===== IMAGEN PRINCIPAL =====
+     Reemplaza el src="" de abajo con la ruta o URL de tu imagen principal.
+     Ejemplo: src="mi-foto.jpg"  o  src="https://..."
+  */
+  .imagen-principal {
+    margin-top: 30px;
+    width: 280px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 24px;
+    border: 8px solid #ffffffcc;
+    box-shadow: 0 10px 30px rgba(200, 100, 150, 0.35);
+    z-index: 5;
+    background: #ffffff77; /* placeholder mientras no haya imagen */
+  }
+
+  /* ===== LLUVIA DE IMÁGENES ===== */
+  .lluvia-contenedor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .imagen-cayendo {
+    position: absolute;
+    top: -100px;
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+    animation-name: caer;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes caer {
+    0% {
+      transform: translateY(-10vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% {
+      transform: translateY(110vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  .mensaje-final {
+    margin: 40px 0 60px 0;
+    color: #b5507d;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: center;
+    z-index: 5;
+    padding: 0 20px;
+  }
+
+  @media (max-width: 500px) {
+    .titulo { font-size: 2.2rem; }
+    .imagen-principal { width: 200px; height: 200px; }
+  }
+</style>
+</head>
+<body>
+
+  <h1 class="titulo">💗 Te amo hermanita 💗</h1>
+  <p class="subtitulo">Eres lo más dulce que tengo en la vida</p>
+
+  <!-- ===== IMAGEN PRINCIPAL: cambia el src por tu imagen ===== -->
+  <img class="imagen-principal" src="images (1).jpeg" alt="Foto de mi hermanita">
+
+  <p class="mensaje-final">Que este día esté lleno de dulzura, tal como tú 🍬</p>
+
+  <!-- ===== LLUVIA DE IMÁGENES =====
+       Aquí se generan las imágenes que caen.
+       Cambia las rutas dentro del arreglo "imagenes" por las tuyas.
+       Puedes poner tantas como quieras (dulces, corazones, estrellas, etc). -->
+  <div class="lluvia-contenedor" id="lluvia"></div>
+
+  <script>
+    // 👉 Reemplaza estas rutas con las imágenes que quieras que caigan
+    const imagenes = [
+      "images (2).jpeg"
+    ];
+
+    const contenedor = document.getElementById("lluvia");
+    const cantidadTotal = 35; // cuántas imágenes caen en total
+
+    for (let i = 0; i < cantidadTotal; i++) {
+      const img = document.createElement("img");
+      img.src = imagenes[i % imagenes.length];
+      img.classList.add("imagen-cayendo");
+
+      const izquierda = Math.random() * 100;
+      const duracion = 6 + Math.random() * 8;
+      const retraso = Math.random() * 10;
+      const tamano = 40 + Math.random() * 40;
+
+      img.style.left = izquierda + "vw";
+      img.style.animationDuration = duracion + "s";
+      img.style.animationDelay = retraso + "s";
+      img.style.width = tamano + "px";
+      img.style.height = tamano + "px";
+
+      contenedor.appendChild(img);
+    }
+  </script>
+
+</body>
+</html>
